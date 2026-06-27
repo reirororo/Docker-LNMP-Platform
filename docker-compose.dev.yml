@@ -1,0 +1,23 @@
+﻿version: "3.8"
+
+# Development overrides - expose DB/Redis ports, bind-mount www for live editing
+services:
+  nginx:
+    volumes:
+      - ./www:/var/www/html
+
+  php-fpm:
+    volumes:
+      - ./www:/var/www/html
+
+  mysql:
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+
+  redis:
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+
+  elasticsearch:
+    ports:
+      - "${ES_PORT:-9200}:9200"

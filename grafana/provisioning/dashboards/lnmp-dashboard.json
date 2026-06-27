@@ -1,0 +1,58 @@
+﻿{
+  "dashboard": {
+    "title": "LNMP Platform Overview",
+    "tags": ["lnmp", "docker"],
+    "timezone": "browser",
+    "schemaVersion": 36,
+    "version": 1,
+    "refresh": "30s",
+    "panels": [
+      {
+        "title": "Nginx Requests Rate",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 8, "x": 0, "y": 0},
+        "targets": [{"expr": "rate(nginx_http_requests_total[1m])", "legendFormat": "{{status}}"}],
+        "datasource": "Prometheus"
+      },
+      {
+        "title": "PHP-FPM Active Processes",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 8, "x": 8, "y": 0},
+        "targets": [{"expr": "php_fpm_active_processes", "legendFormat": "active"}],
+        "datasource": "Prometheus"
+      },
+      {
+        "title": "MySQL Connections",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 8, "x": 16, "y": 0},
+        "targets": [{"expr": "mysql_global_status_threads_connected", "legendFormat": "connections"}],
+        "datasource": "Prometheus"
+      },
+      {
+        "title": "System CPU Load",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 8, "x": 0, "y": 8},
+        "targets": [{"expr": "node_load1", "legendFormat": "load1"}],
+        "datasource": "Prometheus"
+      },
+      {
+        "title": "System Memory",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 8, "x": 8, "y": 8},
+        "targets": [
+          {"expr": "node_memory_MemTotal_bytes", "legendFormat": "total"},
+          {"expr": "node_memory_MemFree_bytes", "legendFormat": "free"}
+        ],
+        "datasource": "Prometheus"
+      },
+      {
+        "title": "Redis Memory",
+        "type": "graph",
+        "gridPos": {"h": 8, "w": 8, "x": 16, "y": 8},
+        "targets": [{"expr": "redis_memory_used_bytes", "legendFormat": "used"}],
+        "datasource": "Prometheus"
+      }
+    ]
+  },
+  "overwrite": true
+}

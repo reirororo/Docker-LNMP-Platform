@@ -1,0 +1,20 @@
+﻿version: "3.8"
+
+# Production overrides - no port exposure for DB/Redis, stricter security
+services:
+  nginx:
+    ports:
+      - "${NGINX_PORT:-80}:80"
+
+  php-fpm:
+    environment:
+      - APP_ENV=prod
+
+  mysql:
+    ports: []
+
+  redis:
+    ports: []
+
+  elasticsearch:
+    ports: []

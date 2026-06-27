@@ -1,0 +1,44 @@
+﻿groups:
+  - name: lnmp_alerts
+    interval: 30s
+    rules:
+      - alert: NginxHighErrorRate
+        expr: rate(nginx_http_requests_total{status=~"5.."}[5m]) / rate(nginx_http_requests_total[5m]) > 0.01
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Nginx 5xx error rate > 1%"
+          description: "Nginx 5xx 错误率已达到 {{ $value | humanizePercentage }}，持续 2 分钟。"
+      - alert: PhpFpmActiveProcessesHigh
+        expr: php_fpm_active_processes / php_fpm_max_children > 0.8
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PHP-FPM active processes > 80%"
+          description: "PHP-FPM 活跃进程数已达 {{ $value | humanizePercentage }}。"
+      - alert: MySQLConnectionsHigh
+        expr: mysql_global_status_threads_connected / mysql_global_variables_max_connections > 0.8
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "MySQL connections > 80%"
+          description: "MySQL 连接数已达 {{ $value | humanizePercentage }}。"
+      - alert: RedisMemoryHigh
+        expr: redis_memory_used_bytes / redis_memory_max_bytes > 0.8
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis memory usage > 80%"
+          description: "Redis 内存使用已达 {{ $value | humanizePercentage }}。"
+      - alert: ContainerDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Container {{ $labels.instance }} is down"
+          description: "{{ $labels.job }} 的实例 {{ $labels.instance }} 已离线 1 分钟。"
