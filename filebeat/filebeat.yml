@@ -7,22 +7,6 @@
     - add_docker_metadata:
         host: "unix:///var/run/docker.sock"
 
-- type: log
-  enabled: true
-  paths:
-    - /var/log/nginx/*.log
-  fields:
-    service: nginx
-  fields_under_root: true
-
-- type: log
-  enabled: true
-  paths:
-    - /var/log/php/*.log
-  fields:
-    service: php-fpm
-  fields_under_root: true
-
 output.logstash:
   hosts: ["logstash:5044"]
 
