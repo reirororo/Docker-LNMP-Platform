@@ -135,7 +135,7 @@ services:
 
   # ==================== Elasticsearch ====================
   elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.22
+    image: elastic/elasticsearch:7.17.22
     container_name: lnmp-es
     restart: unless-stopped
     volumes:
@@ -160,7 +160,7 @@ services:
 
   # ==================== Logstash ====================
   logstash:
-    image: docker.elastic.co/logstash/logstash:7.17.22
+    image: elastic/logstash:7.17.22
     container_name: lnmp-logstash
     restart: unless-stopped
     volumes:
@@ -183,7 +183,7 @@ services:
 
   # ==================== Filebeat ====================
   filebeat:
-    image: docker.elastic.co/beats/filebeat:7.17.22
+    image: elastic/filebeat:7.17.22
     container_name: lnmp-filebeat
     restart: unless-stopped
     user: root
@@ -202,7 +202,7 @@ services:
 
   # ==================== Kibana ====================
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.17.22
+    image: elastic/kibana:7.17.22
     container_name: lnmp-kibana
     restart: unless-stopped
     ports:
@@ -256,7 +256,7 @@ services:
 
   # ==================== PHP-FPM Exporter ====================
   php-fpm-exporter:
-    image: bakins/php-fpm-exporter:latest
+    image: hipages/php-fpm-exporter:latest
     container_name: lnmp-phpfpm-exporter
     restart: unless-stopped
     networks:
@@ -284,7 +284,7 @@ services:
 
   # ==================== cAdvisor ====================
   cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.49.1
+    image: google/cadvisor:v0.49.1
     container_name: lnmp-cadvisor
     restart: unless-stopped
     networks:
@@ -377,3 +377,4 @@ services:
     command: >
       sh -c "apk add --no-cache socat && echo 'Webhook receiver ready on port 5000' && socat TCP-LISTEN:5000,fork,reuseaddr SYSTEM:'echo HTTP/1.1 200 OK; echo Content-Type: application/json; echo; echo {\"received\":true}'"
     logging: *default-logging
+
